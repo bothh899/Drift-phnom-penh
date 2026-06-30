@@ -114,9 +114,11 @@ footer .icon{color:var(--accent);margin-right:8px;font-family:'Manrope'}
 .table-preview{width:100%;height:110px;border-radius:10px;background-color:#333;background-size:cover;background-position:center;margin-bottom:20px;position:relative;border:1px solid var(--line);display:flex;align-items:flex-end;overflow:hidden;box-shadow:inset 0 -40px 40px rgba(0,0,0,.6)}
 .table-preview span{color:#fff;font-size:11px;padding:8px 14px;width:100%;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.8)}
 
-.form-grid{display:grid;grid-template-columns:1fr;gap:14px}@media(min-width:600px){.form-grid.two{grid-template-columns:1fr 1fr}}
+/* Update: Force .form-grid.two to always be 2 columns even on small phones */
+.form-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.form-grid.two{grid-template-columns:1fr 1fr; gap:10px} 
 label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600}
-input:not([type=checkbox]),.modal select{width:100%;background:var(--surface-2);border:1px solid var(--line);color:var(--ink);padding:12px 14px;border-radius:8px;font-family:inherit;font-size:14.5px;outline:none;transition:border-color .2s;min-height:46px}
+input:not([type=checkbox]),.modal select{width:100%;max-width:100%;box-sizing:border-box;background:var(--surface-2);border:1px solid var(--line);color:var(--ink);padding:12px 14px;border-radius:8px;font-family:inherit;font-size:14.5px;outline:none;transition:border-color .2s;min-height:46px}
 input:not([type=checkbox]):focus,.modal select:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(255,61,26,.15)}
 
 .premium-section{background:var(--surface-2);border:1px solid var(--line);padding:16px;border-radius:12px;margin-top:6px;box-shadow:var(--shadow)}
@@ -304,10 +306,11 @@ input:not([type=checkbox]):focus,.modal select:focus{border-color:var(--accent);
         <label data-i18n="form_phone">លេខទូរស័ព្ទ (Phone)</label>
         <input id="phone" type="tel" required placeholder="012 345 678">
       </div>
+      
       <div class="form-grid two">
         <div>
           <label data-i18n="form_date_label">ថ្ងៃកក់ (Date)</label>
-          <input id="form-date" type="text" readonly style="background:var(--line); color:var(--muted); cursor:not-allowed;">
+          <input id="form-date" type="date" required>
         </div>
         <div>
           <label data-i18n="form_time">ម៉ោងមកដល់ (Arrival Time)</label>
@@ -321,11 +324,12 @@ input:not([type=checkbox]):focus,.modal select:focus{border-color:var(--accent);
         <div class="form-grid two" style="margin-bottom:12px;">
           <div>
             <label data-i18n="addon_occ_label">កម្មវិធីថ្ងៃនេះ (Occasion)</label>
-            <select id="addon-occasion">
-              <option value="None" data-i18n="addon_none">គ្មាន (None)</option>
-              <option value="Birthday" data-i18n="addon_bday">ជប់លៀងថ្ងៃកំណើត (Birthday)</option>
-              <option value="Anniversary" data-i18n="addon_ann">ខួបស្នេហា (Anniversary)</option>
-            </select>
+            <input type="text" id="addon-occasion" list="occasion-list" placeholder="ឧ. ជប់លៀងក្រុមហ៊ុន..." autocomplete="off">
+            <datalist id="occasion-list">
+              <option value="គ្មាន (None)">
+              <option value="ជប់លៀងថ្ងៃកំណើត (Birthday)">
+              <option value="ខួបស្នេហា (Anniversary)">
+            </datalist>
           </div>
           <div>
             <label data-i18n="form_pay">វិធីបង់ប្រាក់ (Payment Method)</label>
@@ -602,16 +606,29 @@ function scrollToFloor(){ document.getElementById('floor').scrollIntoView({behav
 document.getElementById('booking-form').addEventListener('submit', function(e){
   e.preventDefault();
   if (selectedTables.size === 0) return;
+  
   const name = document.getElementById('name').value;
   const phone = document.getElementById('phone').value;
   const time = document.getElementById('time').value;
-  const occasion = document.getElementById('addon-occasion').value;
+  let occasion = document.getElementById('addon-occasion').value;
+  const formDate = document.getElementById('form-date').value; // Update: Get date from form
+
+  // បើទទេ ដាក់ថា គ្មាន
+  if(!occasion) occasion = "គ្មាន (None)";
+
+  // Update: If user changed the date in the modal, we apply it to the system
+  if(formDate !== selectedDate) {
+    selectedDate = formDate;
+    document.getElementById('booking-date-filter').value = selectedDate;
+  }
+
   let tablePrice = 0;
   const tNames = Array.from(selectedTables);
   tNames.forEach(id => { tablePrice += tableDB.find(x => x.id === id).price; });
   let finalTotal = tablePrice;
   const addonsContainer = document.getElementById('inv-addons-container');
   addonsContainer.innerHTML = '';
+  
   const checkboxes = document.querySelectorAll('.extra-item:checked');
   checkboxes.forEach(chk => {
     const itemName = chk.getAttribute('data-name');
@@ -622,18 +639,22 @@ document.getElementById('booking-form').addEventListener('submit', function(e){
     row.innerHTML = `<span>+ ${itemName}:</span> <b>$${itemPrice}</b>`;
     addonsContainer.appendChild(row);
   });
+
   document.getElementById('inv-date-issued').innerText = new Date().toLocaleString('en-GB');
   document.getElementById('inv-id').innerText = "#" + Math.floor(100000 + Math.random() * 900000);
   document.getElementById('inv-name').innerText = name;
   document.getElementById('inv-phone').innerText = phone;
-  document.getElementById('inv-book-date').innerText = selectedDate;
+  // Update: Show the potentially updated date in the invoice
+  document.getElementById('inv-book-date').innerText = selectedDate; 
   document.getElementById('inv-time').innerText = time;
   document.getElementById('inv-occ').innerText = occasion;
   document.getElementById('inv-tables').innerText = tNames.join(', ');
   document.getElementById('inv-table-price').innerText = "$" + tablePrice;
   document.getElementById('inv-total').innerText = "$" + finalTotal;
+  
   document.getElementById('form-modal').style.display = 'none';
   document.getElementById('invoice-box').style.display = 'block';
+  
   if(!bookingsDB[selectedDate]) bookingsDB[selectedDate] = [];
   bookingsDB[selectedDate].push(...tNames);
 });
