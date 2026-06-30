@@ -2,7 +2,7 @@
 <html lang="km">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>DRIFT Phnom Penh — Table Booking</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,18 +33,40 @@
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 24px;
+
+  /* ---- Layer / z-index scale (kept in one place so stacking stays predictable) ---- */
+  --z-base: 1;
+  --z-zone-label: 2;
+  --z-table: 5;
+  --z-table-hover: 10;
+  --z-header: 40;
+  --z-action-bar: 60;
+  --z-modal-bg: 200;
+
+  /* ---- Safe-area helpers for iOS notch / home-indicator ---- */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; scroll-behavior: smooth; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html {
+  margin: 0; padding: 0; scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  touch-action: manipulation; /* kills the double-tap-to-zoom delay/gesture on iOS & Android */
+  height: 100%;
+}
 body {
+  margin: 0; padding: 0;
   background: var(--bg);
   color: var(--ink);
   font-family: 'Kantumruy Pro', 'Manrope', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  width: 100%;
+  min-height: 100%;
   font-size: 15px;
   line-height: 1.6;
+  overscroll-behavior-y: contain; /* stop the iOS rubber-band pulling the whole page */
 }
 ::selection { background: var(--accent); color: var(--bg); }
 
@@ -60,13 +82,15 @@ a { color: inherit; text-decoration: none; transition: color 0.3s; }
 
 /* ---------- Nav ---------- */
 header {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: 0; z-index: var(--z-header);
   display: flex; align-items: center; justify-content: space-between;
   padding: 16px 5vw;
+  padding-top: calc(16px + var(--safe-top));
   background: rgba(5, 5, 5, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
+  gap: 10px;
 }
 .logo { font-size: 24px; letter-spacing: 2px; text-transform: uppercase; }
 .logo span { color: var(--accent); }
@@ -230,17 +254,20 @@ select {
 
 .table-btn {
   position: absolute; width: 40px; height: 40px;
+  z-index: var(--z-table);
   border-radius: var(--radius-sm); border: 1px solid var(--line);
   background: var(--surface-2); color: var(--ink);
   font-weight: 700; font-size: 11px; font-family: 'Manrope';
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 @media(min-width: 768px) { .table-btn { width: 44px; height: 44px; font-size: 12px;} }
 .table-btn.round { border-radius: 50%; }
 
-.table-btn:hover { transform: scale(1.1); z-index: 10; }
+.table-btn:hover { transform: scale(1.1); z-index: var(--z-table-hover); }
 .table-btn.available { border-color: #444; }
 .table-btn.available:hover { border-color: var(--ink); box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
