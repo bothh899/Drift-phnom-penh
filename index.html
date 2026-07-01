@@ -22,12 +22,23 @@ a{color:inherit;text-decoration:none;transition:color .3s}
 @keyframes floatOrb{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(80px,80px) scale(1.2)}}
 .main-wrapper{position:relative;z-index:var(--z-base)}
 
-/* Header */
+/* Header & Nav */
 header{position:sticky;top:0;z-index:var(--z-header);display:flex;align-items:center;justify-content:space-between;padding:12px 5vw;padding-top:calc(12px + var(--safe-top));background:rgba(9,4,15,0.7);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid var(--glass-border)}
 .logo{font-size:22px;letter-spacing:3px;text-shadow:0 0 10px rgba(212,175,55,0.3)} .logo span{color:var(--accent)}
-.header-right{display:flex;align-items:center;gap:16px}
-nav a{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-left:24px;transition:all .3s} nav a:hover{color:var(--accent)}
-nav{display:none} @media(min-width:768px){nav{display:block}}
+.header-right{display:flex;align-items:center;gap:12px}
+
+/* Responsive Nav Bar */
+nav{display:none;position:absolute;top:100%;left:0;width:100%;background:rgba(9,4,15,0.95);backdrop-filter:blur(16px);flex-direction:column;padding:15px 0;border-bottom:1px solid var(--glass-border);z-index:40}
+nav.active{display:flex}
+nav a{color:var(--muted);font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:12px 0;text-align:center;transition:all .3s;width:100%;}
+nav a:hover, nav a.active{color:var(--accent)}
+.mobile-menu-btn{background:none;border:none;color:var(--accent);font-size:24px;cursor:pointer;display:block;padding:0;margin-left:8px;}
+@media(min-width:768px){
+  nav{display:flex;position:static;background:transparent;padding:0;border:none;flex-direction:row;width:auto}
+  nav a{font-size:12px;margin:0 0 0 24px;width:auto;}
+  .mobile-menu-btn{display:none}
+}
+
 .lang-switch{display:flex;border:1px solid var(--glass-border);border-radius:30px;background:rgba(0,0,0,0.5);padding:2px} .lang-switch button{background:transparent;border:none;color:var(--muted);font-family:inherit;font-size:11px;font-weight:800;padding:6px 14px;border-radius:24px;cursor:pointer;transition:all .3s} .lang-switch button.active{background:var(--gradient);color:#000;box-shadow:0 0 10px rgba(212,175,55,0.3)}
 
 /* Banner Carousel */
@@ -59,23 +70,23 @@ nav{display:none} @media(min-width:768px){nav{display:block}}
 section.block{padding:40px 5vw;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
 .block-head{margin-bottom:24px;text-align:center} .block-head h2{font-size:clamp(20px,5vw,32px);margin:0;line-height:1.2;font-weight:900;text-transform:uppercase;letter-spacing:1px} .block-head p{color:var(--muted);max-width:550px;margin:8px auto 0;font-size:13px}
 
-/* FULL RESPONSIVE FORM GRID FIX (Prevents Overlapping) */
+/* FULL RESPONSIVE FORM GRID FIX */
 .form-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;width:100%}
-.form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))} /* minmax(0, 1fr) is the magic fix for CSS Grid overflow */
+.form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))} 
 
 .filters-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;background:var(--glass-bg);padding:14px;border-radius:var(--radius-md);border:1px solid var(--glass-border);backdrop-filter:var(--glass-blur);margin:0 auto 20px;max-width:900px;box-shadow:var(--shadow-glass)}
-.filters-row .filter-field:nth-child(3){grid-column:1/-1} /* Capacity full width on mobile */
+.filters-row .filter-field:nth-child(3){grid-column:1/-1} 
 @media(min-width:600px){.filters-row{grid-template-columns:repeat(3,minmax(0,1fr))} .filters-row .filter-field:nth-child(3){grid-column:auto}}
 .filter-field{display:flex;flex-direction:column;gap:6px} .filter-field label{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;margin:0;padding-left:4px}
 
-/* Universal Input Styling - Solves iOS Bug */
+/* Universal Input Styling */
 label{display:block;font-size:11px;color:#aaa;margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap}
 input:not([type="checkbox"]),select{
   width:100%; min-width:0; max-width:100%; box-sizing:border-box;
   background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.1); color:var(--ink);
   padding:12px 10px; border-radius:var(--radius-sm); font-family:inherit; font-size:13px;
   outline:none; transition:all .3s ease; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
-  -webkit-appearance:none; appearance:none; /* Removes iOS default padding/styling */
+  -webkit-appearance:none; appearance:none; 
 }
 input:not([type="checkbox"]):focus,select:focus{border-color:var(--accent);background:rgba(0,0,0,0.8);box-shadow:0 0 0 2px rgba(212,175,55,0.2)}
 select{background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 10px center;background-size:14px;padding-right:26px !important}
@@ -141,15 +152,17 @@ footer .f-logo{font-size:20px;margin-bottom:12px;color:var(--ink)} footer p{colo
   <header>
     <div class="logo"><span class="drift-type">DR<span>1</span>FT</span></div>
     <div class="header-right">
-      <nav>
-        <a href="#floor" data-i18n="nav_floor">ផែនទីតុ</a>
-        <a href="#packages" data-i18n="nav_packages">កញ្ចប់</a>
-        <a href="#floor" class="nav-cta" onclick="scrollToFloor();return false;" data-i18n="nav_book">កក់តុ</a>
+      <nav id="mainNav">
+        <a href="#floor" data-i18n="nav_floor" onclick="toggleMenu()">ផែនទីតុ</a>
+        <a href="#packages" data-i18n="nav_packages" onclick="toggleMenu()">កញ្ចប់</a>
+        <a href="food.html" data-i18n="nav_food">មុខម្ហូប</a>
+        <a href="#floor" class="nav-cta" onclick="scrollToFloor(); toggleMenu(); return false;" data-i18n="nav_book">កក់តុ</a>
       </nav>
       <div class="lang-switch">
         <button id="lang-kh" class="active" onclick="setLang('kh')">KH</button>
         <button id="lang-en" onclick="setLang('en')">EN</button>
       </div>
+      <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
     </div>
   </header>
 
@@ -185,7 +198,6 @@ footer .f-logo{font-size:20px;margin-bottom:12px;color:var(--ink)} footer p{colo
   </section>
 
   <section class="hero">
-    <!-- <div class="eyebrow" data-i18n="hero_eyebrow">បទពិសោធន៍ Nightlife ថ្មី</div> -->
     <h1>DRIFT<br><span class="line2">PHNOM PENH</span></h1>
     <p data-i18n="hero_p">ជ្រើសរើសថ្ងៃខែ និងតុដែលអ្នកពេញចិត្តដោយខ្លួនឯងលើផែនទី ហើយកក់បានភ្លាមៗ។ បទពិសោធន៍ VVIP ចាប់ផ្តើមពីទីនេះ!</p>
     <div class="hero-actions">
@@ -412,9 +424,16 @@ footer .f-logo{font-size:20px;margin-bottom:12px;color:var(--ink)} footer p{colo
 </div>
 
 <script>
+/* ---------- Menu Toggle Logic ---------- */
+function toggleMenu() {
+  const nav = document.getElementById('mainNav');
+  if(nav) nav.classList.toggle('active');
+}
+
+/* ---------- I18N Data ---------- */
 const I18N = {
   kh: {
-    nav_floor:"ផែនទីតុ", nav_packages:"កញ្ចប់", nav_book:"កក់តុ",
+    nav_floor:"ផែនទីតុ", nav_packages:"កញ្ចប់", nav_food:"មុខម្ហូប", nav_book:"កក់តុ",
     promo_1:"LADIES NIGHT", promo_1_sub:"Free Flow Cocktails មុនម៉ោង 11PM",
     promo_2:"GUEST DJ SODA", promo_2_sub:"ចូលរួមសប្បាយថ្ងៃសៅរ៍នេះ",
     promo_3:"OFF 20% VVIP", promo_3_sub:"បញ្ចុះតម្លៃ 20% សម្រាប់តុ VVIP",
@@ -447,7 +466,7 @@ const I18N = {
     summary_text: "អ្នកបានជ្រើសរើស: <b>{tables}</b> (សម្រាប់ {cap} នាក់) <br> តម្លៃតុសរុប (Min Spend): <b style='font-size:16px;'>${price}</b>"
   },
   en: {
-    nav_floor:"Floor Plan", nav_packages:"Packages", nav_book:"Book a Table",
+    nav_floor:"Floor Plan", nav_packages:"Packages", nav_food:"Menu", nav_book:"Book a Table",
     promo_1:"LADIES NIGHT", promo_1_sub:"Free Flow Cocktails before 11PM",
     promo_2:"GUEST DJ SODA", promo_2_sub:"Join the party this Saturday",
     promo_3:"OFF 20% VVIP", promo_3_sub:"20% discount on VVIP tables",
@@ -494,7 +513,7 @@ function setLang(lang){
   updateSummaryText();
 }
 
-/* Banner Carousel Logic */
+/* ---------- Banner Carousel Logic ---------- */
 const track = document.getElementById('bannerTrack');
 const dots = document.querySelectorAll('.dot');
 track.addEventListener('scroll', () => {
@@ -507,6 +526,7 @@ function scrollToSlide(index) {
   track.scrollTo({ left: index * track.offsetWidth, behavior: 'smooth' });
 }
 
+/* ---------- Floor Plan Booking Logic ---------- */
 const tableDB = [
   {id:'V1', x:8, y:50, type:'vip', cap:8, price: 280, zone:'bar'},
   {id:'V2', x:8, y:66, type:'vip', cap:8, price: 280, zone:'bar'},

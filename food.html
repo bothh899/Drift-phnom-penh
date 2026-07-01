@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>DRIFT Phnom Penh — Menu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Manrope:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09040f;--glass-bg:rgba(15,10,25,0.5);--glass-border:rgba(255,255,255,0.08);--glass-blur:blur(16px);--ink:#fff;--muted:#a0a0a0;--accent:#D4AF37;--accent-dim:rgba(212,175,55,0.15);--vip:#FFD700;--gradient:linear-gradient(135deg,#F3E5AB 0%,#D4AF37 50%,#aa8529 100%);--shadow-glass:0 8px 32px rgba(0,0,0,0.5);--shadow-glow:0 0 24px rgba(212,175,55,0.4);--radius-sm:8px;--radius-md:16px;--radius-lg:24px;--z-bg:0;--z-base:1;--z-header:40;--safe-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background-color:var(--bg);color:var(--ink);font-family:'Kantumruy Pro','Manrope',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;width:100%;min-height:100%;font-size:15px;line-height:1.6}
+::selection{background:var(--accent);color:#000}
+.drift-type{font-family:'Manrope',sans-serif;font-weight:900;font-style:italic;letter-spacing:2px;display:inline-block;text-transform:uppercase}
+a{color:inherit;text-decoration:none;transition:color .3s}
+
+.ambient-orb{position:fixed;border-radius:50%;filter:blur(90px);opacity:0.4;z-index:var(--z-bg);pointer-events:none;animation:floatOrb 15s infinite alternate ease-in-out}
+.orb-1{width:350px;height:350px;background:#D4AF37;top:-10%;left:-10%}
+.orb-2{width:450px;height:450px;background:#5a189a;bottom:-10%;right:-10%;animation-delay:-5s;opacity:0.3}
+@keyframes floatOrb{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(80px,80px) scale(1.2)}}
+.main-wrapper{position:relative;z-index:var(--z-base)}
+
+header{position:sticky;top:0;z-index:var(--z-header);display:flex;align-items:center;justify-content:space-between;padding:12px 5vw;padding-top:calc(12px + var(--safe-top));background:rgba(9,4,15,0.7);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid var(--glass-border)}
+.logo{font-size:22px;letter-spacing:3px;text-shadow:0 0 10px rgba(212,175,55,0.3)} .logo span{color:var(--accent)}
+.header-right{display:flex;align-items:center;gap:12px}
+
+/* Responsive Nav Bar */
+nav{display:none;position:absolute;top:100%;left:0;width:100%;background:rgba(9,4,15,0.95);backdrop-filter:blur(16px);flex-direction:column;padding:15px 0;border-bottom:1px solid var(--glass-border);z-index:40}
+nav.active{display:flex}
+nav a{color:var(--muted);font-size:14px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:12px 0;text-align:center;transition:all .3s;width:100%;}
+nav a:hover, nav a.active{color:var(--accent)}
+.mobile-menu-btn{background:none;border:none;color:var(--accent);font-size:24px;cursor:pointer;display:block;padding:0;margin-left:4px;}
+@media(min-width:768px){
+  nav{display:flex;position:static;background:transparent;padding:0;border:none;flex-direction:row;width:auto}
+  nav a{font-size:12px;margin:0 0 0 24px;width:auto;}
+  .mobile-menu-btn{display:none}
+}
+
+.lang-switch{display:flex;border:1px solid var(--glass-border);border-radius:30px;background:rgba(0,0,0,0.5);padding:2px} .lang-switch button{background:transparent;border:none;color:var(--muted);font-family:inherit;font-size:11px;font-weight:800;padding:6px 14px;border-radius:24px;cursor:pointer;transition:all .3s} .lang-switch button.active{background:var(--gradient);color:#000;box-shadow:0 0 10px rgba(212,175,55,0.3)}
+
+/* Hero */
+.menu-hero{position:relative;padding:36px 5vw 28px;text-align:center;display:flex;flex-direction:column;align-items:center;border-bottom:1px solid rgba(255,255,255,0.05)}
+.eyebrow{color:var(--accent);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:800;margin-bottom:14px;padding:5px 14px;border:1px solid rgba(212,175,55,0.3);border-radius:30px;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px)}
+.menu-hero h1{font-family:'Manrope',sans-serif;font-size:clamp(28px,7vw,50px);line-height:1.1;margin:0 0 10px;font-weight:900;text-transform:uppercase;color:#fff;letter-spacing:-0.5px}
+.menu-hero h1 span{color:var(--accent)}
+.menu-hero p{max-width:520px;margin:0 auto;color:#ccc;font-size:13px;line-height:1.6;font-weight:400}
+
+/* Category tabs */
+.cat-nav{position:sticky;top:57px;z-index:35;background:rgba(9,4,15,0.85);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid var(--glass-border);padding:12px 5vw;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.cat-nav::-webkit-scrollbar{display:none}
+.cat-nav-inner{display:inline-flex;gap:8px}
+.cat-chip{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:30px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.02);color:var(--muted);font-size:11px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;transition:all .3s;flex-shrink:0}
+.cat-chip:hover{border-color:rgba(212,175,55,0.4);color:#eee}
+.cat-chip.active{background:var(--gradient);color:#000;border-color:transparent;box-shadow:0 4px 15px rgba(212,175,55,0.25)}
+
+/* Menu sections */
+section.menu-block{padding:36px 5vw;position:relative}
+.section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:20px;max-width:1200px;margin-left:auto;margin-right:auto}
+.section-head .num{font-family:'Manrope';font-weight:900;font-size:13px;color:var(--accent);letter-spacing:0.1em;opacity:0.7}
+.section-head h2{font-size:clamp(19px,4.5vw,26px);margin:0;font-weight:900;text-transform:uppercase;letter-spacing:1px}
+.section-head .line{flex:1;height:1px;background:linear-gradient(90deg,rgba(212,175,55,0.4),transparent)}
+
+/* 2 Items per row grid update */
+.dish-grid{display:grid;grid-template-columns:repeat(2, 1fr);gap:12px;max-width:1200px;margin:0 auto}
+@media(min-width:768px){.dish-grid{grid-template-columns:repeat(3, 1fr);gap:16px}}
+@media(min-width:1200px){.dish-grid{grid-template-columns:repeat(4, 1fr)}}
+
+.dish-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-md);overflow:hidden;transition:all .35s ease;backdrop-filter:var(--glass-blur);box-shadow:var(--shadow-glass);display:flex;flex-direction:column;position:relative}
+.dish-card:hover{transform:translateY(-4px);border-color:rgba(212,175,55,0.3);box-shadow:0 12px 34px rgba(0,0,0,0.6),0 0 20px rgba(212,175,55,0.08)}
+
+/* Optimized Image and padding for Mobile (2 Items row) */
+.dish-img-wrap{position:relative;width:100%;height:140px;overflow:hidden}
+@media(min-width:768px){.dish-img-wrap{height:170px}}
+.dish-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.dish-card:hover .dish-img-wrap img{transform:scale(1.08)}
+.dish-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(9,4,15,0.85) 0%,transparent 55%)}
+
+.dish-badge{position:absolute;top:8px;left:8px;z-index:2;background:var(--gradient);color:#000;font-size:8px;font-weight:900;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.06em;box-shadow:0 4px 10px rgba(212,175,55,0.35)}
+@media(min-width:768px){.dish-badge{top:10px;left:10px;font-size:9px;padding:4px 10px}}
+.dish-badge.spicy{background:linear-gradient(135deg,#ff6b6b,#c0392b);color:#fff}
+
+.dish-price-tag{position:absolute;bottom:8px;right:8px;z-index:2;background:rgba(0,0,0,0.65);border:1px solid rgba(212,175,55,0.4);color:var(--accent);font-family:'Manrope';font-weight:900;font-size:12px;padding:3px 10px;border-radius:20px;backdrop-filter:blur(4px)}
+@media(min-width:768px){.dish-price-tag{bottom:10px;right:10px;font-size:14px;padding:4px 12px}}
+
+.dish-body{padding:10px;display:flex;flex-direction:column;gap:4px;flex:1}
+@media(min-width:768px){.dish-body{padding:14px 16px 16px;gap:6px}}
+.dish-title-kh{font-size:13px;font-weight:700;color:#fff;line-height:1.3}
+@media(min-width:768px){.dish-title-kh{font-size:15px}}
+.dish-title-en{font-size:9px;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;font-weight:700}
+@media(min-width:768px){.dish-title-en{font-size:10px}}
+.dish-desc{font-size:11px;color:var(--muted);line-height:1.4;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+@media(min-width:768px){.dish-desc{font-size:12px;display:block}}
+.dish-meta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06)}
+@media(min-width:768px){.dish-meta{margin-top:8px;padding-top:10px}}
+.dish-tags{display:flex;gap:4px;flex-wrap:wrap}
+.dish-tag{font-size:8px;color:#bbb;background:rgba(255,255,255,0.05);padding:2px 6px;border-radius:20px;letter-spacing:0.04em;text-transform:uppercase;font-weight:700;border:1px solid var(--glass-border)}
+@media(min-width:768px){.dish-tag{font-size:9px;padding:3px 8px;gap:5px}}
+
+/* CTA banner */
+.cta-banner{max-width:1200px;margin:44px auto 0;background:linear-gradient(135deg,rgba(212,175,55,0.12),rgba(90,24,154,0.08));border:1px solid rgba(212,175,55,0.25);border-radius:var(--radius-lg);padding:28px 24px;text-align:center;box-shadow:var(--shadow-glass)}
+.cta-banner h3{margin:0 0 8px;font-size:clamp(18px,4vw,24px);font-weight:900;text-transform:uppercase;letter-spacing:1px}
+.cta-banner p{margin:0 0 18px;color:var(--muted);font-size:13px;max-width:460px;margin-left:auto;margin-right:auto}
+.btn{border:none;cursor:pointer;font-family:inherit;padding:13px 26px;border-radius:30px;font-weight:800;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;transition:all .3s ease;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;position:relative;overflow:hidden}
+.btn:active{transform:scale(0.96)}
+.btn-primary{background:var(--gradient);color:#000;box-shadow:0 4px 15px rgba(212,175,55,0.2)}
+.btn-primary:hover{box-shadow:var(--shadow-glow);transform:translateY(-2px)}
+
+footer{padding:40px 5vw;background:rgba(5,2,10,0.9);border-top:1px solid var(--glass-border);display:grid;grid-template-columns:1fr;gap:30px;position:relative;z-index:1;margin-top:44px}
+@media(min-width:768px){footer{grid-template-columns:2fr 1fr 1fr}}
+footer .f-logo{font-size:20px;margin-bottom:12px;color:var(--ink)}
+footer p{color:var(--muted);font-size:12px;line-height:1.8;margin:0 0 8px}
+footer .icon{color:var(--accent);margin-right:8px;font-style:normal;font-size:14px}
+
+.notice{max-width:1200px;margin:8px auto 0;text-align:center;color:var(--muted);font-size:11px;opacity:0.7;letter-spacing:0.02em}
+</style>
+</head>
+<body>
+
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+
+<div class="main-wrapper">
+  <header>
+    <div class="logo"><span class="drift-type">DR<span>1</span>FT</span></div>
+    <div class="header-right">
+      <nav id="mainNav">
+        <a href="index.html">ទំព័រដើម</a>
+        <a href="index.html#packages">កញ្ចប់</a>
+        <a href="food.html" class="active" data-i18n="nav_food_here">មុខម្ហូប</a>
+        <a href="index.html#floor">កក់តុ</a>
+      </nav>
+      <div class="lang-switch">
+        <button id="lang-kh" class="active" onclick="setLang('kh')">KH</button>
+        <button id="lang-en" onclick="setLang('en')">EN</button>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+  </header>
+
+  <section class="menu-hero">
+    <div class="eyebrow" data-i18n="eyebrow">Food & Beverage Menu</div>
+    <h1 data-i18n="hero_h1">មុខម្ហូប <span>&</span> ភេសជ្ជៈ</h1>
+    <p data-i18n="hero_p">ជម្រើសម្ហូបញ៉ាំលេង និងកូកតែលពិសេសរបស់ DRIFT រៀបចំដោយក្រុមចុងភៅ សម្រាប់ភ្ជាប់ជាមួយការកក់តុរបស់អ្នក។</p>
+  </section>
+
+  <div class="cat-nav">
+    <div class="cat-nav-inner" id="catNav"></div>
+  </div>
+
+  <div id="menuContainer"></div>
+
+  <section class="menu-block" style="padding-top:0;">
+    <div class="cta-banner">
+      <h3 data-i18n="cta_h3">ចង់បញ្ជាទុកមុនសម្រាប់តុរបស់អ្នក?</h3>
+      <p data-i18n="cta_p">កក់តុជាមុន ហើយបន្ថែមមុខម្ហូប ឬភេសជ្ជៈដែលអ្នកចង់បានចូលទៅក្នុងការកក់របស់អ្នកបានភ្លាមៗ។</p>
+      <a href="index.html#floor" class="btn btn-primary" data-i18n="cta_btn">កក់តុឥឡូវនេះ</a>
+    </div>
+    <p class="notice" data-i18n="notice">* តម្លៃរួមបញ្ចូល VAT ។ រូបភាពសម្រាប់បង្ហាញតែប៉ុណ្ណោះ។</p>
+  </section>
+
+  <footer>
+    <div class="footer-col">
+      <div class="f-logo"><span class="drift-type">DR<span>1</span>FT</span> Phnom Penh</div>
+      <p data-i18n="foot_desc">បទពិសោធន៍កម្សាន្តពេលរាត្រីដ៏ល្អឥតខ្ចោះ និងស៊ីវិល័យបំផុតនៅកណ្តាលរាជធានីភ្នំពេញ។</p>
+    </div>
+    <div class="footer-col">
+      <p><strong><span class="icon">📍</span>អាសយដ្ឋាន (Address):</strong></p>
+      <p>120407, 49A St 566, Phnom Penh 120407, Cambodia</p>
+    </div>
+    <div class="footer-col">
+      <p><strong><span class="icon">📞</span>ទំនាក់ទំនង (Contact):</strong></p>
+      <p>070 983 989</p>
+      <p><strong><span class="icon">✉️</span>អ៊ីមែល (Email):</strong></p>
+      <p>diftphnompenh@gmail.com</p>
+    </div>
+  </footer>
+</div>
+
+<script>
+/* ---------- Menu Toggle Logic ---------- */
+function toggleMenu() {
+  document.getElementById('mainNav').classList.toggle('active');
+}
+
+/* ---------- i18n for static page copy ---------- */
+const I18N = {
+  kh: {
+    nav_food_here:"មុខម្ហូប",
+    eyebrow:"Food & Beverage Menu",
+    hero_h1:"មុខម្ហូប <span>&</span> ភេសជ្ជៈ",
+    hero_p:"ជម្រើសម្ហូបញ៉ាំលេង និងកូកតែលពិសេសរបស់ DRIFT រៀបចំដោយក្រុមចុងភៅ សម្រាប់ភ្ជាប់ជាមួយការកក់តុរបស់អ្នក។",
+    cta_h3:"ចង់បញ្ជាទុកមុនសម្រាប់តុរបស់អ្នក?",
+    cta_p:"កក់តុជាមុន ហើយបន្ថែមមុខម្ហូប ឬភេសជ្ជៈដែលអ្នកចង់បានចូលទៅក្នុងការកក់របស់អ្នកបានភ្លាមៗ។",
+    cta_btn:"កក់តុឥឡូវនេះ",
+    notice:"* តម្លៃរួមបញ្ចូល VAT ។ រូបភាពសម្រាប់បង្ហាញតែប៉ុណ្ណោះ។",
+    foot_desc:"បទពិសោធន៍កម្សាន្តពេលរាត្រីដ៏ល្អឥតខ្ចោះ និងស៊ីវិល័យបំផុតនៅកណ្តាលរាជធានីភ្នំពេញ។",
+    cat_all:"ទាំងអស់"
+  },
+  en: {
+    nav_food_here:"Menu",
+    eyebrow:"Food & Beverage Menu",
+    hero_h1:"FOOD <span>&</span> BEVERAGE",
+    hero_p:"DRIFT's curated bites and signature cocktails, crafted by our kitchen and bar team to pair with your table.",
+    cta_h3:"Want to pre-order for your table?",
+    cta_p:"Book your table first, then add any dishes or drinks you'd like straight into your reservation.",
+    cta_btn:"Book a Table Now",
+    notice:"* Prices are VAT inclusive. Images are for illustration only.",
+    foot_desc:"The most refined nightlife experience in the heart of Phnom Penh.",
+    cat_all:"All"
+  }
+};
+let currentLang = 'kh';
+
+/* ---------- Menu data ---------- */
+const CATEGORIES = [
+  { id:'cocktails', kh:'កូកតែលពិសេស', en:'Signature Cocktails', icon:'🍸' },
+  { id:'mocktails', kh:'ភេសជ្ជៈគ្មានជាតិស្រវឹង', en:'Mocktails', icon:'🍹' },
+  { id:'platters',  kh:'ចានចែករំលែក', en:'Sharing Platters', icon:'🍤' },
+  { id:'skewers',   kh:'អាំង & ស៊ិក', en:'Grill & Skewers', icon:'🍢' },
+  { id:'bottles',   kh:'ភេសជ្ជៈពិសេស', en:'Premium Bottles', icon:'🥂' }
+];
+
+const MENU = [
+  // Signature Cocktails
+  { cat:'cocktails', kh:'ដ្រីហ្វ ហ្គោល្ត ហ្វេស៊ិន', en:'Drift Gold Fashion', desc_kh:'វីស្គី ប្លែនដេត បន្ថែមទឹកឃ្មុំមូស និងផ្សែងឈើ', desc_en:'Barrel-aged whiskey, honey reduction, smoked orange peel', price:14, img:'https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&q=80&w=600', tags:['signature'], badge:'BEST SELLER' },
+  { cat:'cocktails', kh:'ភ្នំពេញ ភ្លើងបញ្ចេញ', en:'Phnom Penh Spark', desc_kh:'ជីន ក្រូចឆ្មារ ស្លឹកមេអំបៅ Butterfly Pea បញ្ចេញពណ៌ស្វាហាប់', desc_en:'Gin, lime, butterfly pea colour-change, soda top', price:12, img:'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=600', tags:['popular'] },
+  { cat:'cocktails', kh:'ម៉ែហ្គោ ស្មូគី', en:'Smoky Mango Mule', desc_kh:'រ៉ុម ស្វាយទុំ ខ្ញីភេស្សន៍ ហុយភ្លើងស្រាល', desc_en:'Dark rum, ripe mango, ginger beer, light torch finish', price:13, img:'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&q=80&w=600', tags:['sweet'] },
+  { cat:'cocktails', kh:'ខ្មៅ អរតូ', en:'Midnight Espresso', desc_kh:'វ៉ូដកា កាហ្វេអេស្ព្រេសូខ្មៅ ក្រែម Kahlúa', desc_en:'Vodka, double espresso, Kahlúa cream float', price:13, img:'https://images.unsplash.com/photo-1541976590-713941681591?auto=format&fit=crop&q=80&w=600', tags:['coffee'] },
+  { cat:'cocktails', kh:'ដ្រីហ្វ ភ្លើងក្រហម', en:'Crimson Drift', desc_kh:'តេគីឡា ផ្លែទទឹម ម្រេចខ្ចី ស្ករគ្រាប់ធញ្ញជាតិ', desc_en:'Tequila, pomegranate, jalapeño, agave', price:14, img:'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&q=80&w=600', tags:['spicy'], badge:'SPICY', badgeClass:'spicy' },
+  // Mocktails
+  { cat:'mocktails', kh:'ផាសិន ស៊ិនសែត', en:'Passion Sunset', desc_kh:'ផ្លែម្នាស់ ស្វាយចន្ទី ក្រូចថ្លុង ស្ករក្រូច', desc_en:'Passionfruit, dragonfruit purée, grapefruit, citrus syrup', price:7, img:'https://images.unsplash.com/photo-1546171753-97d7676e4602?auto=format&fit=crop&q=80&w=600', tags:['no alcohol'] },
+  { cat:'mocktails', kh:'កម្សានៈ ត្រជាក់', en:'Cucumber Cooler', desc_kh:'ត្រសក់ ត្រកួន ក្រូចឆ្មារ ទឹកសូដា', desc_en:'Cucumber, mint, lime, sparkling soda', price:6, img:'https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&q=80&w=600', tags:['refreshing'] },
+  { cat:'mocktails', kh:'ប៊ែរីភ្លើងខៀវ', en:'Blue Berry Glow', desc_kh:'ប៊្លូបឺរី ក្រូចថ្លុងផ្កាឈូក ទឹកសូដា Tonic', desc_en:'Blueberry, rose grapefruit, tonic soda', price:7, img:'https://images.unsplash.com/photo-1560508180-03f285f67ded?auto=format&fit=crop&q=80&w=600', tags:['sweet'] },
+  // Sharing Platters
+  { cat:'platters', kh:'ចានឈីសពិសេស ដ្រីហ្វ', en:'Drift Cheese Board', desc_kh:'ឈីសបរទេស ៤ប្រភេទ ជាមួយផ្លែឈើស្ងួត និងនំបុ័ង', desc_en:'Four imported cheeses, dried fruit, artisan crackers', price:32, img:'https://images.unsplash.com/photo-1452195100486-9cc805987862?auto=format&fit=crop&q=80&w=600', tags:['sharing'], badge:'ពេញនិយម' },
+  { cat:'platters', kh:'ចានសមុទ្រលាយ', en:'Seafood Sharing Tower', desc_kh:'បង្គាចៀន បង្គាដុត សាច់ត្រី និងទឹកជ្រលក់ពិសេស', desc_en:'Grilled shrimp, prawns, calamari, house dipping sauce', price:45, img:'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&q=80&w=600', tags:['seafood'] },
+  { cat:'platters', kh:'ត្រីលក់ក្រៀម បំពងស្រស់', en:'Crispy Calamari Basket', desc_kh:'ត្រីមឹកចៀមក្រៀម ជាមួយទឹកជ្រលក់ម្រេចខ្ចី', desc_en:'Golden fried calamari, spicy citrus aioli', price:16, img:'https://images.unsplash.com/photo-1626082927389-6cd097cee6a6?auto=format&fit=crop&q=80&w=600', tags:['fried'] },
+  { cat:'platters', kh:'ណាឆូ ចាហួយ', en:'Loaded Nacho Tower', desc_kh:'ណាឆូក្រៀម ឈីសរលាយ សាច់គោសូ្ស និងគ្រាប់ម្រេចជូ', desc_en:'Crispy nachos, melted cheese, beef chili, jalapeños', price:15, img:'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?auto=format&fit=crop&q=80&w=600', tags:['sharing','spicy'] },
+  // Grill & Skewers
+  { cat:'skewers', kh:'ស៊ិកសាច់គោអាំង', en:'Wagyu Beef Skewers', desc_kh:'សាច់គោ Wagyu អាំងផ្សែងឈើ ជាមួយទឹកជ្រលក់ Teriyaki', desc_en:'Charcoal-grilled wagyu skewers, house teriyaki glaze', price:22, img:'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=600', tags:['grill'], badge:'PREMIUM' },
+  { cat:'skewers', kh:'មាន់អាំង ស្ពៃរីវ៉ែល', en:'Lemongrass Chicken Skewers', desc_kh:'សាច់មាន់ដម្រៅជាមួយក្រៅសាមេអំបៅ អាំងស្រស់', desc_en:'Marinated lemongrass chicken, char-grilled to order', price:14, img:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&q=80&w=600', tags:['grill'] },
+  { cat:'skewers', kh:'បង្គាអាំងខ្ជៅ', en:'Chili-Garlic Prawn Skewers', desc_kh:'បង្គាធំអាំង ជាមួយប្រេងខ្ជៅ និងម្រេច', desc_en:'Jumbo prawns, garlic chili oil glaze', price:19, img:'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=600', tags:['seafood','spicy'] },
+  // Premium Bottles
+  { cat:'bottles', kh:'ម៉ូអេត ស្យង', en:'Moët & Chandon', desc_kh:'ស្រាបៃឆាំង Champagne បារាំងពិតប្រាកដ', desc_en:'Classic French champagne, served chilled', price:200, img:'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?auto=format&fit=crop&q=80&w=600', tags:['champagne'], badge:'VVIP' },
+  { cat:'bottles', kh:'ហ្គ្រេយហ្គូស វ៉ូដកា', en:'Grey Goose Vodka', desc_kh:'វ៉ូដកាបារាំងកម្រិតខ្ពស់ ១លីត្រ ជាមួយទឹកលាយ', desc_en:'Premium French vodka, 1L, served with mixers', price:150, img:'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&q=80&w=600', tags:['spirits'] },
+  { cat:'bottles', kh:'ម៉ាកខាឡាន ១២ឆ្នាំ', en:'Macallan 12 Year', desc_kh:'វីស្គីស្កុតឡែន Single Malt អាយុ ១២ឆ្នាំ', desc_en:'Single malt scotch whisky, aged 12 years', price:180, img:'https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&q=80&w=600', tags:['whisky'] },
+  { cat:'bottles', kh:'ដុងពែរីញ៉ុង', en:'Dom Pérignon', desc_kh:'ស្រាឆាំងកម្រិត Vintage កូឡិចសិន', desc_en:'Vintage prestige cuvée champagne', price:420, img:'https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&q=80&w=600', tags:['champagne'], badge:'VVIP' }
+];
+
+function currencyFmt(n){ return '$' + n; }
+
+function renderCatNav(){
+  const wrap = document.getElementById('catNav');
+  wrap.innerHTML = '';
+  const allChip = document.createElement('div');
+  allChip.className = 'cat-chip active';
+  allChip.dataset.cat = 'all';
+  allChip.innerHTML = '<span>✦</span><span class="chip-label">' + I18N[currentLang].cat_all + '</span>';
+  allChip.onclick = () => selectCat('all');
+  wrap.appendChild(allChip);
+  CATEGORIES.forEach(c => {
+    const chip = document.createElement('div');
+    chip.className = 'cat-chip';
+    chip.dataset.cat = c.id;
+    chip.innerHTML = '<span>'+c.icon+'</span><span class="chip-label">' + (currentLang==='kh'?c.kh:c.en) + '</span>';
+    chip.onclick = () => selectCat(c.id);
+    wrap.appendChild(chip);
+  });
+}
+
+let activeCat = 'all';
+function selectCat(id){
+  activeCat = id;
+  document.querySelectorAll('.cat-chip').forEach(el => el.classList.toggle('active', el.dataset.cat === id));
+  renderMenu();
+}
+
+function renderMenu(){
+  const container = document.getElementById('menuContainer');
+  container.innerHTML = '';
+  const cats = activeCat === 'all' ? CATEGORIES : CATEGORIES.filter(c => c.id === activeCat);
+
+  cats.forEach((c, idx) => {
+    const items = MENU.filter(m => m.cat === c.id);
+    if(items.length === 0) return;
+
+    const section = document.createElement('section');
+    section.className = 'menu-block';
+
+    const head = document.createElement('div');
+    head.className = 'section-head';
+    head.innerHTML = `<span class="num">${c.icon}</span><h2>${currentLang==='kh'?c.kh:c.en}</h2><span class="line"></span>`;
+    section.appendChild(head);
+
+    const grid = document.createElement('div');
+    grid.className = 'dish-grid';
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'dish-card';
+      const badgeHtml = item.badge ? `<span class="dish-badge ${item.badgeClass||''}">${item.badge}</span>` : '';
+      const tagsHtml = (item.tags||[]).map(t => `<span class="dish-tag">${t}</span>`).join('');
+      card.innerHTML = `
+        <div class="dish-img-wrap">
+          <img src="${item.img}" alt="${item.en}" loading="lazy">
+          ${badgeHtml}
+          <span class="dish-price-tag">${currencyFmt(item.price)}</span>
+        </div>
+        <div class="dish-body">
+          <div class="dish-title-kh">${currentLang==='kh' ? item.kh : item.en}</div>
+          <div class="dish-title-en">${currentLang==='kh' ? item.en : item.kh}</div>
+          <div class="dish-desc">${currentLang==='kh' ? item.desc_kh : item.desc_en}</div>
+          <div class="dish-meta"><div class="dish-tags">${tagsHtml}</div></div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+}
+
+function setLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang === 'kh' ? 'km' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (I18N[lang][key]) el.innerHTML = I18N[lang][key];
+  });
+  document.getElementById('lang-kh').classList.toggle('active', lang === 'kh');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  renderCatNav();
+  document.querySelectorAll('.cat-chip').forEach(el => el.classList.toggle('active', el.dataset.cat === activeCat));
+  renderMenu();
+}
+
+window.onload = () => {
+  renderCatNav();
+  renderMenu();
+  setLang('kh');
+};
+</script>
+
+</body>
+</html>
