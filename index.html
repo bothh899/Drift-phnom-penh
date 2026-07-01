@@ -20,8 +20,6 @@ a{color:inherit;text-decoration:none;transition:color .3s}
 .orb-1{width:350px;height:350px;background:#D4AF37;top:-10%;left:-10%}
 .orb-2{width:450px;height:450px;background:#5a189a;bottom:-10%;right:-10%;animation-delay:-5s;opacity:0.3}
 @keyframes floatOrb{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(80px,80px) scale(1.2)}}
-
-/* Main Container to keep content above Orbs */
 .main-wrapper{position:relative;z-index:var(--z-base)}
 
 /* Header */
@@ -49,11 +47,9 @@ nav{display:none} @media(min-width:768px){nav{display:block}}
 .hero h1{font-family:'Manrope',sans-serif;font-size:clamp(30px,7.5vw,56px);line-height:1.1;margin:0 0 10px;font-weight:900;text-transform:uppercase;color:#fff;letter-spacing:-0.5px} .hero h1 .line2{color:var(--accent)}
 .hero p{max-width:500px;margin:0 auto 20px;color:#ccc;font-size:13px;line-height:1.5;font-weight:400}
 .hero-actions{display:flex;gap:10px;flex-wrap:nowrap;justify-content:center;width:100%;max-width:400px;margin-bottom:24px}
-/* Shimmer Button Effect */
 .btn{border:none;cursor:pointer;font-family:inherit;padding:12px 16px;border-radius:30px;font-weight:800;font-size:12px;letter-spacing:0.05em;text-transform:uppercase;transition:all .3s ease;display:inline-flex;align-items:center;justify-content:center;flex:1;white-space:nowrap;position:relative;overflow:hidden} .btn:active{transform:scale(0.96)}
 .btn-primary{background:var(--gradient);color:#000;box-shadow:0 4px 15px rgba(212,175,55,0.2)} .btn-primary:hover{box-shadow:var(--shadow-glow);transform:translateY(-2px)}
-.btn-primary::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);transform:skewX(-20deg);animation:shimmer 3s infinite}
-@keyframes shimmer{0%{left:-100%} 20%{left:200%} 100%{left:200%}}
+.btn-primary::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);transform:skewX(-20deg);animation:shimmer 3s infinite} @keyframes shimmer{0%{left:-100%} 20%{left:200%} 100%{left:200%}}
 .btn-ghost{background:rgba(255,255,255,0.02);color:var(--ink);border:1px solid var(--glass-border);backdrop-filter:blur(8px)} .btn-ghost:hover{background:rgba(255,255,255,0.06);border-color:var(--accent);transform:translateY(-2px)}
 .stats{display:flex;flex-wrap:nowrap;justify-content:space-evenly;width:100%;max-width:480px;background:var(--glass-bg);padding:14px 16px;border-radius:24px;border:1px solid var(--glass-border);backdrop-filter:var(--glass-blur);box-shadow:var(--shadow-glass)}
 .stats div{text-align:center;flex:1;border-right:1px solid rgba(255,255,255,0.1)} .stats div:last-child{border-right:none}
@@ -63,29 +59,28 @@ nav{display:none} @media(min-width:768px){nav{display:block}}
 section.block{padding:40px 5vw;position:relative;border-bottom:1px solid rgba(255,255,255,0.03)}
 .block-head{margin-bottom:24px;text-align:center} .block-head h2{font-size:clamp(20px,5vw,32px);margin:0;line-height:1.2;font-weight:900;text-transform:uppercase;letter-spacing:1px} .block-head p{color:var(--muted);max-width:550px;margin:8px auto 0;font-size:13px}
 
-/* Smart Filters */
-.filters-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--glass-bg);padding:14px;border-radius:var(--radius-md);border:1px solid var(--glass-border);backdrop-filter:var(--glass-blur);margin:0 auto 20px;max-width:900px;box-shadow:var(--shadow-glass)} .filters-row .filter-field:nth-child(3){grid-column:1/-1} @media(min-width:600px){.filters-row{grid-template-columns:repeat(3,1fr)} .filters-row .filter-field:nth-child(3){grid-column:auto}}
+/* Smart Filters - RESPONSIVE FIX with minmax(0, 1fr) */
+.filters-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;background:var(--glass-bg);padding:14px;border-radius:var(--radius-md);border:1px solid var(--glass-border);backdrop-filter:var(--glass-blur);margin:0 auto 20px;max-width:900px;box-shadow:var(--shadow-glass)} .filters-row .filter-field:nth-child(3){grid-column:1/-1} @media(min-width:600px){.filters-row{grid-template-columns:repeat(3,minmax(0,1fr))} .filters-row .filter-field:nth-child(3){grid-column:auto}}
 .filter-field{display:flex;flex-direction:column;gap:6px} .filter-field label{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:0.05em;text-transform:uppercase;margin:0;padding-left:4px}
 select{appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 12px center;background-size:14px}
-.filters-row input[type="date"],.filters-row select{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.05);color:var(--ink);padding:12px 14px;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;outline:none;cursor:pointer;width:100%;transition:all .3s ease;box-sizing:border-box} .filters-row input[type="date"]:focus,.filters-row select:focus{border-color:var(--accent);background:rgba(0,0,0,0.6);box-shadow:0 0 0 2px rgba(212,175,55,0.2)}
+.filters-row input[type="date"],.filters-row select{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.05);color:var(--ink);padding:12px 14px;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;outline:none;cursor:pointer;width:100%;min-width:0;transition:all .3s ease;box-sizing:border-box} .filters-row input[type="date"]:hover,.filters-row select:hover{background:rgba(255,255,255,0.03)} .filters-row input[type="date"]:focus,.filters-row select:focus{border-color:var(--accent);background:rgba(0,0,0,0.6);box-shadow:0 0 0 2px rgba(212,175,55,0.2)}
 
-/* Legend & Floor Plan */
-.legend{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:16px} .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#bbb;background:rgba(255,255,255,0.03);padding:6px 12px;border-radius:30px;border:1px solid var(--glass-border);white-space:nowrap} .swatch{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+/* Floor Plan */
 .floor-hint{text-align:center;font-size:11px;color:var(--accent);margin-bottom:10px;letter-spacing:0.05em;opacity:0.8} @media(min-width:1060px){.floor-hint{display:none}}
 .floor-wrap{overflow-x:auto;padding-bottom:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-radius:var(--radius-md);box-shadow:var(--shadow-glass);position:relative} .floor-wrap::-webkit-scrollbar{display:none}
 .floor{position:relative;width:900px;max-width:none;height:500px;margin:0 auto;background:linear-gradient(rgba(10,5,20,0.8), rgba(5,2,10,0.9)),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(212,175,55,0.03) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(212,175,55,0.03) 40px);border:1px solid var(--glass-border);border-radius:var(--radius-md);box-shadow:inset 0 0 60px rgba(0,0,0,0.9);flex-shrink:0;overflow:hidden} @media(min-width:1060px){.floor{width:100%;height:560px}}
 .zone{position:absolute;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.05);border-radius:var(--radius-sm);color:rgba(255,255,255,0.3);font-size:12px;letter-spacing:0.2em;text-transform:uppercase;background:rgba(255,255,255,0.01);text-align:center} .zone.dj{left:38%;top:4%;width:24%;height:12%;font-family:'Manrope';font-weight:900;color:var(--accent);border:1px solid rgba(212,175,55,0.2);background:rgba(212,175,55,0.05);box-shadow:0 0 20px rgba(212,175,55,0.1)} .zone.dance{left:30%;top:20%;width:40%;height:32%} .zone.bar{left:4%;top:4%;width:15%;height:40%;writing-mode:vertical-rl;text-orientation:mixed} .zone.entrance{left:42%;top:86%;width:16%;height:10%;border-bottom:none;border-radius:var(--radius-sm) var(--radius-sm) 0 0}
 
-/* VIP Pulse Animation */
-@keyframes pulseVip{0%{box-shadow:0 0 0 0 rgba(212,175,55,0.4)} 70%{box-shadow:0 0 0 10px rgba(212,175,55,0)} 100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}}
-
 /* Tables */
 .table-btn{position:absolute;width:40px;height:40px;z-index:var(--z-table);border-radius:10px;border:1px solid rgba(255,255,255,0.15);background:rgba(30,25,40,0.6);color:var(--ink);font-weight:700;font-size:11px;font-family:'Manrope';display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.5);backdrop-filter:blur(4px);-webkit-tap-highlight-color:transparent} @media(min-width:768px){.table-btn{width:46px;height:46px;font-size:12px}} .table-btn.round{border-radius:50%} .table-btn:hover{transform:scale(1.15);z-index:var(--z-table-hover)}
 .table-btn.available:hover{border-color:var(--ink);background:rgba(80,75,90,0.8);box-shadow:0 0 15px rgba(255,255,255,0.2)}
-.table-btn.vip{border-color:rgba(212,175,55,0.5);color:var(--vip);background:rgba(212,175,55,0.08);animation:pulseVip 2s infinite} .table-btn.vip:hover{border-color:var(--vip);background:rgba(212,175,55,0.2);box-shadow:var(--shadow-glow);animation:none}
+.table-btn.vip{border-color:rgba(212,175,55,0.5);color:var(--vip);background:rgba(212,175,55,0.08);animation:pulseVip 2s infinite} @keyframes pulseVip{0%{box-shadow:0 0 0 0 rgba(212,175,55,0.4)} 70%{box-shadow:0 0 0 10px rgba(212,175,55,0)} 100%{box-shadow:0 0 0 0 rgba(212,175,55,0)}} .table-btn.vip:hover{border-color:var(--vip);background:rgba(212,175,55,0.2);box-shadow:var(--shadow-glow);animation:none}
 .table-btn.booked{background:var(--booked);color:#555;border-color:rgba(255,255,255,0.02);cursor:not-allowed;box-shadow:none;animation:none} .table-btn.booked:hover{transform:none}
 .table-btn.selected{background:var(--gradient);color:#000;border-color:transparent;box-shadow:0 0 20px rgba(212,175,55,0.6);transform:scale(1.1);animation:none}
-.table-btn .cap{position:absolute;bottom:-22px;font-size:9px;color:#aaa;font-weight:700;white-space:nowrap;letter-spacing:0.05em;background:rgba(0,0,0,0.8);padding:3px 6px;border-radius:10px;border:1px solid var(--glass-border);opacity:0;transition:opacity .2s;pointer-events:none} .table-btn:hover .cap,.table-btn.selected .cap{opacity:1} .table-btn.filtered-out{opacity:0.05;pointer-events:none}
+.table-btn .cap{position:absolute;bottom:-22px;font-size:9px;color:#aaa;font-weight:700;white-space:nowrap;letter-spacing:0.05em;background:rgba(0,0,0,0.8);padding:3px 6px;border-radius:10px;border:1px solid var(--glass-border);opacity:0;transition:opacity .2s;pointer-events:none;backdrop-filter:blur(4px)} .table-btn:hover .cap,.table-btn.selected .cap{opacity:1} .table-btn.filtered-out{opacity:0.05;pointer-events:none}
+
+/* Legend (Moved Below Floor Plan) */
+.legend{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:20px;margin-bottom:0} .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#bbb;background:rgba(255,255,255,0.03);padding:6px 12px;border-radius:30px;border:1px solid var(--glass-border);white-space:nowrap;backdrop-filter:blur(4px)} .swatch{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;box-shadow:0 0 8px currentColor}
 
 /* Action Bar */
 .action-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(10,5,15,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(212,175,55,0.3);padding:8px 8px 8px 24px;border-radius:50px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 15px 40px rgba(0,0,0,0.8),0 0 20px rgba(212,175,55,0.15);z-index:var(--z-action-bar);transition:transform .4s ease;width:max-content;max-width:calc(100vw - 32px)} .action-bar.visible{transform:translateX(-50%) translateY(0)} .action-text{font-size:13px;font-weight:600;white-space:nowrap} .action-text span{color:var(--accent);font-weight:900;font-size:16px} .action-bar .btn{padding:12px 20px;font-size:12px;border-radius:30px;white-space:nowrap;box-shadow:none}
@@ -94,8 +89,7 @@ select{appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3
 .packages{display:grid;grid-template-columns:1fr;gap:16px;max-width:1200px;margin:0 auto} @media(min-width:768px){.packages{grid-template-columns:repeat(3,1fr)}}
 .package{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--radius-md);padding:24px;transition:all .4s ease;position:relative;overflow:hidden;backdrop-filter:var(--glass-blur);box-shadow:var(--shadow-glass)} 
 .package:hover{transform:translateY(-5px);border-color:rgba(255,255,255,0.15);box-shadow:0 10px 30px rgba(0,0,0,0.6)} 
-.package.highlight{border-color:rgba(212,175,55,0.3);border-top:6px solid var(--accent);background:linear-gradient(to bottom, rgba(212,175,55,0.05), rgba(15,10,25,0.6))} 
-.package.highlight::after{content:attr(data-badge);position:absolute;top:16px;right:16px;background:var(--gradient);color:#000;font-size:10px;font-weight:900;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.05em;box-shadow:0 4px 10px rgba(212,175,55,0.3)}
+.package.highlight{border-color:rgba(212,175,55,0.3);border-top:6px solid var(--accent);background:linear-gradient(to bottom, rgba(212,175,55,0.05), rgba(15,10,25,0.6))} .package.highlight::after{content:attr(data-badge);position:absolute;top:16px;right:16px;background:var(--gradient);color:#000;font-size:10px;font-weight:900;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.05em;box-shadow:0 4px 10px rgba(212,175,55,0.3)}
 .package h3{margin:0 0 6px;font-size:20px;font-weight:900;letter-spacing:1px;text-transform:uppercase} .package .price{font-size:26px;font-weight:900;color:var(--accent);margin:0 0 16px;font-family:'Manrope';text-shadow:0 0 10px rgba(212,175,55,0.2)} .package .price span{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.1em}
 .package ul{list-style:none;padding:0;margin:0;border-top:1px solid var(--glass-border);padding-top:16px} .package ul li{color:#ddd;font-size:13px;margin-bottom:10px;display:flex;align-items:flex-start;gap:8px;line-height:1.5} .package ul li::before{content:"✦";color:var(--accent);font-size:12px;margin-top:2px;filter:drop-shadow(0 0 5px var(--accent))}
 
@@ -105,17 +99,17 @@ footer .f-logo{font-size:20px;margin-bottom:12px;color:var(--ink)} footer p{colo
 
 /* Modal Form */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:flex-end;justify-content:center;z-index:var(--z-modal-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)} @media(min-width:700px){.modal-bg{align-items:center;padding:20px}} .modal-bg.open{display:flex}
-.modal{background:rgba(15,10,25,0.9);border:1px solid rgba(255,255,255,0.1);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:24px 20px calc(24px + env(safe-area-inset-bottom));animation:slideUp .4s cubic-bezier(0.16,1,0.3,1);box-shadow:0 -10px 50px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.1);scrollbar-width:none} @media(min-width:700px){.modal{border-radius:var(--radius-md);padding:30px;animation:scaleUp .4s ease}} .modal::-webkit-scrollbar{display:none}
+.modal{background:rgba(15,10,25,0.95);border:1px solid rgba(255,255,255,0.1);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:24px 20px calc(24px + env(safe-area-inset-bottom));animation:slideUp .4s cubic-bezier(0.16,1,0.3,1);box-shadow:0 -10px 50px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.1);scrollbar-width:none} @media(min-width:700px){.modal{border-radius:var(--radius-md);padding:30px;animation:scaleUp .4s ease}} .modal::-webkit-scrollbar{display:none}
 @keyframes slideUp{from{transform:translateY(100px);opacity:0}to{transform:translateY(0);opacity:1}} @keyframes scaleUp{from{transform:scale(0.95);opacity:0}to{transform:scale(1);opacity:1}}
 .modal-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px} .modal h3{margin:0;font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;background:var(--gradient);-webkit-background-clip:text;color:transparent}
 .modal-close{background:rgba(255,255,255,0.05);border:1px solid var(--glass-border);color:var(--ink);font-size:18px;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s;flex-shrink:0} .modal-close:hover{background:var(--accent);color:#000;border-color:var(--accent);transform:rotate(90deg)}
 #selected-summary{color:var(--ink);font-size:12px;font-weight:500;margin:0 0 20px;background:linear-gradient(90deg, rgba(212,175,55,0.1) 0%, transparent 100%);padding:10px 14px;border-radius:var(--radius-sm);border-left:3px solid var(--accent);line-height:1.5} #selected-summary b{color:var(--accent)}
 .table-preview{width:100%;height:100px;border-radius:var(--radius-sm);background-color:#000;background-size:cover;background-position:center;margin-bottom:20px;position:relative;border:1px solid var(--glass-border);display:flex;align-items:flex-start;justify-content:flex-end;padding:10px;box-shadow:inset 0 -30px 40px -10px rgba(0,0,0,0.8)} .table-preview span{background:rgba(0,0,0,0.6);color:#fff;font-size:9px;text-transform:uppercase;letter-spacing:0.1em;padding:4px 10px;border-radius:20px;font-weight:800;border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(4px)}
 
-/* Sleek Inputs */
-.form-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:20px;width:100%} .form-grid.two{grid-template-columns:1fr 1fr} @media(max-width:360px){.form-grid.two{grid-template-columns:1fr}}
+/* Sleek Inputs - RESPONSIVE FIX with minmax(0, 1fr) */
+.form-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:20px;width:100%} .form-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))} @media(max-width:360px){.form-grid.two{grid-template-columns:1fr}}
 label{display:block;font-size:11px;color:#aaa;margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap}
-input:not([type="checkbox"]),.modal select{width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:var(--ink);padding:12px 14px;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;outline:none;transition:all .3s;box-sizing:border-box;max-width:100%} input:not([type="checkbox"]):focus,.modal select:focus{border-color:var(--accent);background:rgba(0,0,0,0.8);box-shadow:0 0 0 2px rgba(212,175,55,0.15)}
+input:not([type="checkbox"]),.modal select{width:100%;min-width:0;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);color:var(--ink);padding:12px 14px;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;outline:none;transition:all .3s;box-sizing:border-box} input:not([type="checkbox"]):focus,.modal select:focus{border-color:var(--accent);background:rgba(0,0,0,0.8);box-shadow:0 0 0 2px rgba(212,175,55,0.15)}
 
 /* Premium Addons */
 .premium-section{background:rgba(255,255,255,0.02);border:1px solid var(--glass-border);padding:16px;border-radius:var(--radius-md);margin-bottom:20px} .premium-section h4{margin:0 0 16px 0;font-size:12px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:10px}
@@ -206,6 +200,7 @@ input:not([type="checkbox"]),.modal select{width:100%;background:rgba(0,0,0,0.4)
       <p data-i18n="floor_p">សូមជ្រើសរើសកាលបរិច្ឆេទ រួចចុចលើតុដែលទំនេរនៅលើប្លង់។ អ្នកអាចកក់ច្រើនតុក្នុងពេលតែមួយបាន។</p>
     </div>
 
+    <!-- Smart Filters (Responsive Fix) -->
     <div class="filters-row">
       <div class="filter-field">
         <label data-i18n="filter_date">ថ្ងៃកក់ (Date):</label>
@@ -231,13 +226,6 @@ input:not([type="checkbox"]),.modal select{width:100%;background:rgba(0,0,0,0.4)
       </div>
     </div>
 
-    <div class="legend">
-      <div class="legend-item"><span class="swatch" style="background:rgba(255,255,255,0.1);border:1px solid #666;"></span><span data-i18n="legend_std">ធម្មតា (ទំនេរ)</span></div>
-      <div class="legend-item"><span class="swatch" style="background:rgba(212,175,55,0.2);border:1px solid var(--vip);"></span><span data-i18n="legend_vip">VIP (ទំនេរ)</span></div>
-      <div class="legend-item"><span class="swatch" style="background:var(--booked);border:1px solid transparent;"></span><span data-i18n="legend_booked">កក់ហើយ</span></div>
-      <div class="legend-item"><span class="swatch" style="background:var(--accent);box-shadow:0 0 10px var(--accent);border:1px solid transparent;"></span><span data-i18n="legend_selected">កំពុងជ្រើសរើស</span></div>
-    </div>
-
     <div class="floor-hint">↔ <span data-i18n="floor_hint">អូសដើម្បីមើលប្លង់ពេញ</span></div>
 
     <div class="floor-wrap">
@@ -247,6 +235,14 @@ input:not([type="checkbox"]),.modal select{width:100%;background:rgba(0,0,0,0.4)
         <div class="zone bar" data-i18n="zone_bar">BAR</div>
         <div class="zone entrance" data-i18n="zone_entrance">ENTRANCE</div>
       </div>
+    </div>
+    
+    <!-- Legend Moved Below Floor Plan -->
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background:rgba(255,255,255,0.1);border:1px solid #666;"></span><span data-i18n="legend_std">ធម្មតា (ទំនេរ)</span></div>
+      <div class="legend-item"><span class="swatch" style="background:rgba(212,175,55,0.2);border:1px solid var(--vip);"></span><span data-i18n="legend_vip">VIP (ទំនេរ)</span></div>
+      <div class="legend-item"><span class="swatch" style="background:var(--booked);border:1px solid transparent;"></span><span data-i18n="legend_booked">កក់ហើយ</span></div>
+      <div class="legend-item"><span class="swatch" style="background:var(--accent);box-shadow:0 0 10px var(--accent);border:1px solid transparent;"></span><span data-i18n="legend_selected">កំពុងជ្រើសរើស</span></div>
     </div>
   </section>
 
@@ -311,7 +307,7 @@ input:not([type="checkbox"]),.modal select{width:100%;background:rgba(0,0,0,0.4)
   </footer>
 </div>
 
-<!-- Modal Background remains outside wrapper to easily sit on top -->
+<!-- Modal Background -->
 <div class="modal-bg" id="modal-bg">
   <div class="modal" id="form-modal">
     <div class="modal-top">
@@ -337,6 +333,7 @@ input:not([type="checkbox"]),.modal select{width:100%;background:rgba(0,0,0,0.4)
         </div>
       </div>
       
+      <!-- Form Responsive Fix with minmax(0, 1fr) -->
       <div class="form-grid two">
         <div>
           <label data-i18n="form_date_label">ថ្ងៃកក់ (Date)</label>
