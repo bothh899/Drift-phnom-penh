@@ -34,7 +34,7 @@
   --radius-md: 12px;
   --radius-lg: 24px;
 
-  /* ---- Layer / z-index scale (kept in one place so stacking stays predictable) ---- */
+  /* ---- Layer / z-index scale ---- */
   --z-base: 1;
   --z-zone-label: 2;
   --z-table: 5;
@@ -43,7 +43,7 @@
   --z-action-bar: 60;
   --z-modal-bg: 200;
 
-  /* ---- Safe-area helpers for iOS notch / home-indicator ---- */
+  /* ---- Safe-area helpers for iOS notch ---- */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -52,7 +52,7 @@
 html {
   margin: 0; padding: 0; scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
-  touch-action: manipulation; /* kills the double-tap-to-zoom delay/gesture on iOS & Android */
+  touch-action: manipulation;
   height: 100%;
 }
 body {
@@ -66,7 +66,7 @@ body {
   min-height: 100%;
   font-size: 15px;
   line-height: 1.6;
-  overscroll-behavior-y: contain; /* stop the iOS rubber-band pulling the whole page */
+  overscroll-behavior-y: contain;
 }
 ::selection { background: var(--accent); color: var(--bg); }
 
@@ -121,37 +121,60 @@ nav { display: none; }
 }
 .lang-switch button.active { background: var(--accent); color: var(--bg); }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero Banner (UPDATED to 16:9 Image Background) ---------- */
 .hero {
-  position: relative; padding: 60px 5vw 50px; overflow: hidden;
+  position: relative; 
+  padding: 80px 5vw 60px; 
+  overflow: hidden;
   border-bottom: 1px solid var(--line);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Background Image setup */
+  background-image: linear-gradient(to bottom, rgba(5, 5, 5, 0.4) 0%, rgba(5, 5, 5, 0.98) 100%), url('https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&q=80&w=1600');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 60vh; /* Horizontal feel on mobile */
 }
+
+@media (min-width: 768px) {
+  .hero { 
+    aspect-ratio: 16 / 9; /* Landscape horizontal banner */
+    max-height: 75vh;
+  }
+}
+
 .hero::before {
   content: ""; position: absolute; inset: 0;
-  background: radial-gradient(circle at center, var(--accent-dim) 0%, transparent 70%);
-  pointer-events: none; opacity: 0.6;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+  pointer-events: none;
 }
 .eyebrow {
   color: var(--accent); font-size: 12px; letter-spacing: 0.2em;
   text-transform: uppercase; font-weight: 700; margin-bottom: 16px;
   position: relative; z-index: 1; display: inline-block;
   padding: 4px 12px; border: 1px solid var(--accent); border-radius: 20px;
+  background: rgba(5, 5, 5, 0.5); backdrop-filter: blur(4px);
 }
 .hero h1 {
-  font-family: 'Manrope', sans-serif; font-size: clamp(32px, 8vw, 85px);
+  font-family: 'Manrope', sans-serif; font-size: clamp(36px, 8vw, 90px);
   line-height: 1.1; margin: 0 0 20px; position: relative; z-index: 1;
   font-weight: 900; text-transform: uppercase; letter-spacing: -1px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.8);
 }
 .hero h1 .line2 {
   background: var(--gradient); -webkit-background-clip: text;
   background-clip: text; color: transparent;
 }
 .hero p {
-  max-width: 600px; margin: 0 auto 32px; color: var(--muted);
+  max-width: 600px; margin: 0 auto 32px; color: #ddd;
   font-size: 15px; line-height: 1.7; position: relative; z-index: 1;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; margin-bottom: 30px;}
 
 .btn {
   border: none; cursor: pointer; font-family: inherit;
@@ -164,24 +187,25 @@ nav { display: none; }
 .btn:active { transform: translateY(2px); }
 .btn-primary {
   background: var(--gradient); color: var(--bg);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 }
 .btn-primary:hover { box-shadow: var(--shadow-glow); transform: translateY(-2px); }
-.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--accent); }
+.btn-ghost { background: rgba(5,5,5,0.6); color: var(--ink); border: 1px solid var(--accent); backdrop-filter: blur(4px);}
 .btn-ghost:hover { background: var(--accent-dim); color: var(--accent); transform: translateY(-2px); }
 
 .stats {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;
-  margin-top: 40px; position: relative; z-index: 1;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
+  position: relative; z-index: 1;
+  background: rgba(5,5,5,0.4); padding: 16px 30px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(8px);
 }
 .stats div { text-align: center; }
-.stats b { display: block; font-size: clamp(24px, 5vw, 28px); font-weight: 800; color: var(--ink); font-family: 'Manrope'; }
+.stats b { display: block; font-size: clamp(24px, 5vw, 28px); font-weight: 800; color: var(--ink); font-family: 'Manrope'; text-shadow: 0 2px 10px rgba(0,0,0,0.5);}
 .stats span { color: var(--accent); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600;}
 
 /* ---------- Block Sections ---------- */
 section.block { padding: 50px 5vw; border-bottom: 1px solid var(--line); }
 .block-head { margin-bottom: 30px; text-align: center; }
-.block-head .eyebrow { border: none; padding: 0; margin-bottom: 8px; }
+.block-head .eyebrow { border: none; padding: 0; margin-bottom: 8px; background: transparent; backdrop-filter: none; }
 .block-head h2 { font-size: clamp(22px, 5vw, 36px); margin: 0; line-height: 1.3; font-weight: 800; text-transform: uppercase;}
 .block-head p { color: var(--muted); max-width: 600px; margin: 12px auto 0; font-size: 14px; }
 
@@ -399,7 +423,6 @@ footer .icon { color: var(--accent); margin-right: 8px; font-style: normal; }
 }
 
 /* Form Elements */
-/* RESPONSIVE GRID FIX: Use auto-fit or specific break points so items wrap correctly */
 .form-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 20px; width: 100%;}
 @media(min-width: 480px) { .form-grid.two { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } }
 
@@ -479,9 +502,6 @@ input:not([type="checkbox"]):focus, .modal select:focus {
 .inv-footer .btn:hover { background: var(--accent); color: #000; box-shadow: none;}
 
 @media(max-width: 480px) {
-  .hero { padding: 40px 4vw; }
-  .hero h1 { font-size: 13vw; }
-  section.block { padding: 40px 4vw; }
   .filters-row { padding: 12px; }
   .action-bar { bottom: 12px; }
 }
@@ -849,7 +869,6 @@ window.onload = () => {
   setLang('kh');
 };
 
-// Function when date changes from MAIN filter
 function changeDate(newDate) {
   if(!newDate) return;
   selectedDate = newDate;
@@ -863,13 +882,10 @@ function changeDate(newDate) {
   renderFloorPlan();
 }
 
-// Function when date changes from inside FORM MODAL
 function syncDateToMain(newDate) {
   if(!newDate) return;
   document.getElementById('booking-date-filter').value = newDate;
-  changeDate(newDate); // Reuse main logic to clear tables & generate mock bookings
-  
-  // Since changing date clears selected tables, we should close modal or alert user
+  changeDate(newDate); 
   if(selectedTables.size === 0) {
     alert(currentLang === 'kh' ? "អ្នកបានដូរថ្ងៃ។ សូមជ្រើសរើសតុឡើងវិញនៅលើប្លង់។" : "Date changed. Please re-select tables on the layout.");
     closeModal();
@@ -934,7 +950,6 @@ function updateActionBar() {
 
 function openBookingForm() {
   updateSummaryText();
-  // Don't reset date input when opening form to preserve current selection
   const tempDate = selectedDate; 
   document.getElementById('booking-form').reset();
   document.getElementById('form-date').value = tempDate;
